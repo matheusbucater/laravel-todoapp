@@ -25,7 +25,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-6">
                                             <select name="select" class="form-control pr-5">
-                                                @foreach(\App\Models\TaskList::all() as $tasks_list)
+                                                @foreach(\Illuminate\Support\Facades\Auth::user()->tasks_lists as $tasks_list)
                                                     <option value="{{ $tasks_list->id }}">
                                                         {{ $tasks_list->title }}
                                                     </option>

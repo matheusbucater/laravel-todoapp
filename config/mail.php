@@ -2,6 +2,7 @@
 
 return [
 
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer
@@ -50,7 +51,8 @@ return [
         ],
 
         'mailgun' => [
-            'transport' => 'mailgun',
+            'domain' => 'app232320663@heroku.com',
+            'secret' => '61fa8de1e839960bff72ace21b6d06e5-443ec20e-77430d6f',
         ],
 
         'postmark' => [

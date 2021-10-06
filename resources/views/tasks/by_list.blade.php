@@ -1,6 +1,6 @@
 @extends('layouts.table')
 @section('title')
-    {{ __('Tasks List ') .  $list_id . ' - ' . \App\Models\TaskList::findOrFail($list_id)->title}}
+    {{ __('Tasks List') . ' - ' . \App\Models\TaskList::findOrFail($list_id)->title}}
 @endsection
 @section('add_task')
     <div class="flex flex-col mb-4">
