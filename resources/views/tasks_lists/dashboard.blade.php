@@ -51,6 +51,15 @@
     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
         Title
     </th>
+    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Tasks
+    </th>
+    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Finished Tasks
+    </th>
+    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Unfinished Tasks
+    </th>
     <th scope="col" class="relative px-6 py-3">
         <span class="sr-only">Show Tasks</span>
     </th>
@@ -61,6 +70,15 @@
             <td>&nbsp;</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <a href="/tasks-list/{{ $tasks_list->id }}">{{ $tasks_list->title }}</a>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ $tasks_list->tasks->count() }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ $tasks_list->tasks->where('completed', true)->count() }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ $tasks_list->tasks->where('completed', false)->count() }}
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a href="/tasks-list/{{ $tasks_list->id }}" class="text-indigo-600 hover:text-indigo-900">Show tasks</a>
