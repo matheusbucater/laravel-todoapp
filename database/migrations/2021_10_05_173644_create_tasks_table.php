@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->foreignId('task_list_id')->references('id')->on('tasks_lists')->cascadeOnDelete();
             $table->string('name');
             $table->boolean('completed');
+            $table->boolean('starred');
             $table->timestamps();
         });
     }

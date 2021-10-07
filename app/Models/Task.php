@@ -12,8 +12,10 @@ class Task extends Model
     protected $table = 'tasks';
     protected $attributes = [
         'completed' => false,
+        'starred' => false
     ];
     protected $casts = [
         'completed' => 'boolean',
+        'starred' => 'boolean'
     ];
 }

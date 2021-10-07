@@ -25,6 +25,7 @@ class TaskListFactory extends Factory
         return [
             'user_id' => User::all()->random()->id,
             'title' => $this->faker->text(25),
+            'starred' => $this->faker->boolean
         ];
     }
 }

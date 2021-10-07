@@ -79,9 +79,18 @@ Route::group(['middleware' => ['auth', 'web']], function () {
      */
     Route::delete('/tasks-list/{id}', function ($id) {
         TaskList::findOrFail($id)->delete();
-        return redirect()->back();
+        return redirect('/tasks-lists');
     });
 
+    /**
+     * Un/Star Tasks List
+     */
+    Route::post('/star/{id}', function ($id) {
+        $tasks_list = TaskList::findOrFail($id);
+        $tasks_list->starred = !$tasks_list->starred;
+        $tasks_list->save();
+        return redirect()->back();
+    });
 
     // - - - - - - TASKS - - - - - - //
 

@@ -55,84 +55,102 @@
         </div>
     </div>
 @endsection
-@section('ths')
-    <th>
-        &nbsp;
-    </th>
-    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        List
-    </th>
-    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Status
-    </th>
-    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-        Name
-    </th>
-    <th scope="col" class="relative px-6 py-3">
-        <span class="sr-only">Edit Task Name</span>
-    </th>
-    <th scope="col" class="relative px-6 py-3">
-        <span class="sr-only">Un/Finish</span>
-    </th>
-    <th scope="col" class="relative px-6 py-3">
-        <span class="sr-only">Delete</span>
-    </th>
-@endsection
-@section('content')
-    @foreach($tasks as $task)
-        <tr>
-            <th>
-                &nbsp;
-            </th>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <a href="/tasks-list/{{ $task->task_list_id }}">
-                    {{ \App\Models\TaskList::find($task->task_list_id)->title }}
-                </a>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                @if($task->completed)
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Finished</span>
-                @else
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">Unfinished</span>
-                @endif
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {{ $task->name }}
-            </td>
-            <td class=" py-4 whitespace-nowrap text-right text-sm font-medium">
-                <form action="/edit/{{ $task->id }}" method="POST" class="form-inline">
-                    {{ csrf_field() }}
-                    <input type="text" name="new_name" id="new-task-name" class="form-control mr-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-pen-fill mr-1"></i>
-                        Edit Name
-                    </button>
-                </form>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <form action="/task/{{ $task->id }}" name="yellow_button" method="POST">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-warning">
-                        {!! $task->completed ? '<i class="bi bi-x-lg mr-1"></i>' : '<i class="bi bi-check-lg mr-1"></i>' !!}
-                        {{ $task->completed ? 'Unfinish' : 'Finish' }}
-                    </button>
-                </form>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <form action="/task/{{ $task->id }}" name="red_button" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash-fill mr-1"></i>
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-@endsection
-@section('pagination')
-    <div class="mt-4">
-        {{ $tasks->links() }}
-    </div>
-@endsection
+@if($tasks->count() !== 0)
+    @section('ths')
+        <th>
+            &nbsp;
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            List
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Status
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Name
+        </th>
+        <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Edit Task Name</span>
+        </th>
+        <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Un/Finish</span>
+        </th>
+        <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Delete</span>
+        </th>
+    @endsection
+    @section('content')
+        @foreach($tasks as $task)
+            <tr>
+                <th>
+                    &nbsp;
+                </th>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <a href="/tasks-list/{{ $task->task_list_id }}">
+                        {{ \App\Models\TaskList::find($task->task_list_id)->title }}
+                    </a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    @if($task->completed)
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Finished</span>
+                    @else
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">Unfinished</span>
+                    @endif
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ $task->name }}
+                </td>
+                <td class=" py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <form action="/edit/{{ $task->id }}" method="POST" class="form-inline">
+                        {{ csrf_field() }}
+                        <input type="text" name="new_name" id="new-task-name" class="form-control mr-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-pen-fill mr-1"></i>
+                            Edit Name
+                        </button>
+                    </form>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <form action="/task/{{ $task->id }}" name="yellow_button" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-warning">
+                            {!! $task->completed ? '<i class="bi bi-x-lg mr-1"></i>' : '<i class="bi bi-check-lg mr-1"></i>' !!}
+                            {{ $task->completed ? 'Unfinish' : 'Finish' }}
+                        </button>
+                    </form>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <form action="/task/{{ $task->id }}" name="red_button" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash-fill mr-1"></i>
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    @endsection
+    @section('pagination')
+        <div class="mt-4">
+            {{ $tasks->links() }}
+        </div>
+    @endsection
+@elseif(\App\Models\TaskList::all()->count() === 0)
+    @section('content')
+        <h3 class="font-semibold text-xl text-gray-500 ml-3 mt-3 mb-3 leading-tight">
+            You don't have any tasks lists.
+            <br>
+            Add some <a href="/tasks-lists">here</a>.
+        </h3>
+    @endsection
+@else
+    @section('content')
+        <h3 class="font-semibold text-xl text-gray-500 ml-3 mt-3 mb-3 leading-tight">
+            You don't have any tasks.
+            <br>
+            Try adding one above.
+        </h3>
+    @endsection
+@endif

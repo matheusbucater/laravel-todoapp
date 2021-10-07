@@ -17,6 +17,7 @@ class CreateTasksListsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('title');
+            $table->boolean('starred');
             $table->timestamps();
         });
     }
