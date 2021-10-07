@@ -129,7 +129,8 @@ Route::group(['middleware' => ['auth', 'web']], function () {
      */
     Route::post('/add-task', function (Request $request, Auth $auth) {
        $validator = Validator::make($request->all(),[
-           'name' => 'required|max:255'
+           'name' => 'required|max:255',
+           'select' => 'required'
        ]);
        if ($validator->fails()) {
            return redirect()->back()

@@ -2,60 +2,69 @@
 @section('title')
     {{ __('Tasks') }}
 @endsection
-@section('add_task')
-    <div class="flex flex-col mb-4">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="min-w-full">
-                        <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                New Task
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <form action="/add-task" method="POST" class="form-inline">
-                                {{ csrf_field() }}
 
-                                <!-- Task Name -->
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <select name="select" class="form-control pr-5">
-                                                @foreach(\Illuminate\Support\Facades\Auth::user()->tasks_lists as $tasks_list)
-                                                    <option value="{{ $tasks_list->id }}">
-                                                        {{ $tasks_list->title }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+@if(\Illuminate\Support\Facades\Auth::user()->tasks_lists->count() === 0)
+    @section('content')
+        <h3 class="font-semibold text-xl text-gray-500 ml-3 mt-3 mb-3 leading-tight">
+            You don't have any tasks lists.
+            <br>
+            Add some <a href="/tasks-lists">here</a>.
+        </h3>
+    @endsection
+@elseif($tasks->count() !== 0)
+    @section('add_task')
+        <div class="flex flex-col mb-4">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    New Task
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <form action="/add-task" method="POST" class="form-inline">
+                                    {{ csrf_field() }}
+
+                                    <!-- Task Name -->
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <select name="select" class="form-control pr-5">
+                                                    @foreach(\Illuminate\Support\Facades\Auth::user()->tasks_lists as $tasks_list)
+                                                        <option value="{{ $tasks_list->id }}">
+                                                            {{ $tasks_list->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <div class="col-sm-6">
-                                            <input type="text" name="name" id="task-name" class="form-control mt-4 mb-4 pr-5" value="{{ old('task') }}">
+                                            <div class="col-sm-6">
+                                                <input type="text" name="name" id="task-name" class="form-control mt-4 mb-4 pr-5" value="{{ old('task') }}">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Add Task Button -->
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="bi bi-plus-lg mr-1"></i>
-                                        Add Task
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                        <!-- Add Task Button -->
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-plus-lg mr-1"></i>
+                                            Add Task
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-@if($tasks->count() !== 0)
+    @endsection
     @section('ths')
         <th>
             &nbsp;
@@ -137,16 +146,62 @@
             {{ $tasks->links() }}
         </div>
     @endsection
-@elseif(\App\Models\TaskList::all()->count() === 0)
-    @section('content')
-        <h3 class="font-semibold text-xl text-gray-500 ml-3 mt-3 mb-3 leading-tight">
-            You don't have any tasks lists.
-            <br>
-            Add some <a href="/tasks-lists">here</a>.
-        </h3>
-    @endsection
 @else
+    @section('add_task')
+        <div class="flex flex-col mb-4">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    New Task
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <form action="/add-task" method="POST" class="form-inline">
+                                    {{ csrf_field() }}
+
+                                    <!-- Task Name -->
+                                        <div class="form-group">
+                                            <div class="col-sm-6">
+                                                <select name="select" class="form-control pr-5">
+                                                    @foreach(\Illuminate\Support\Facades\Auth::user()->tasks_lists as $tasks_list)
+                                                        <option value="{{ $tasks_list->id }}">
+                                                            {{ $tasks_list->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-sm-6">
+                                                <input type="text" name="name" id="task-name" class="form-control mt-4 mb-4 pr-5" value="{{ old('task') }}">
+                                            </div>
+                                        </div>
+
+                                        <!-- Add Task Button -->
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="bi bi-plus-lg mr-1"></i>
+                                            Add Task
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
     @section('content')
+
         <h3 class="font-semibold text-xl text-gray-500 ml-3 mt-3 mb-3 leading-tight">
             You don't have any tasks.
             <br>
