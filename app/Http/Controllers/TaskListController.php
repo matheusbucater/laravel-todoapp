@@ -14,7 +14,7 @@ class TaskListController extends Controller
     }
 
     public function dashboard(Auth $auth) {
-        $tasks_lists = $auth::user()->tasks_lists()->where('starred', true)->paginate(10);
-        return view('tasks_lists.dashboard', compact('tasks_lists'));
+        $tasks_lists = $auth::user()->tasks_lists->where('starred', true);
+        return view('tasks_lists.teste', compact('tasks_lists'));
     }
 }
