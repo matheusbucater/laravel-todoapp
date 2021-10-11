@@ -15,12 +15,12 @@
             @foreach($tasks_lists->chunk(3) as $chunk)
             <div class="row mx-auto mb-4">
                 @foreach($chunk as $tasks_list)
-                <div class="bg-white h-25 mx-auto overflow-hidden shadow-sm sm:rounded-lg ">
+                <div class="bg-white mb-2 h-25 mx-auto overflow-hidden shadow-sm sm:rounded-lg ">
                     <div class="bg-gray-100 text-center pt-2 pb-2">
                         <a href="/tasks-list/{{ $tasks_list->id }}">{{ $tasks_list->title }}</a>
                     </div>
                     <div class="p-6  bg-white border-b border-gray-200 {!! $tasks_list->tasks->count() !== 0 ? '' : 'text-center' !!} align-text-middle">
-                        <div class="col w-30 vertical-center">
+                        <div class="col-sm w-30 vertical-center">
                             @if($tasks_list->tasks->count() !== 0)
                                 @if($tasks_list->tasks->where('starred', true)->count() !== 0)
                                     <div>
