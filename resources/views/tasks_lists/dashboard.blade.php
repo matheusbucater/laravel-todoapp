@@ -48,9 +48,9 @@
                                         </ul>
                                     </div>
                                 @endif
-                                    @if($tasks_list->tasks->count() > 3)
+                                    @if($tasks_list->tasks->count() > 3 | ($tasks_list->tasks->where('starred', true)->count() !== 3 & $tasks_list->tasks->where('starred', true)->count() !== 0))
                                         <div class="text-left">
-                                            <a href="/tasks-list/{{ $tasks_list->id }}">. . . see more</a>
+                                            <a href="/tasks-list/{{ $tasks_list->id }}"> . . . see more</a>
                                         </div>
                                     @endif
                             @else
