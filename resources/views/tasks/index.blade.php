@@ -1,4 +1,5 @@
 @extends('layouts.table')
+@section('page_title', 'Tasks')
 @section('title')
     {{ __('Tasks') }}
 @endsection

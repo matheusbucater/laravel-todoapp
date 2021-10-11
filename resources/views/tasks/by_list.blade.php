@@ -1,4 +1,5 @@
 @extends('layouts.table')
+@section('page_title', 'Tasks List' . ' - ' . \App\Models\TaskList::findOrFail($list_id)->title)
 @section('title')
     <table>
         <td>
