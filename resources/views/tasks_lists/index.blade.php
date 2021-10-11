@@ -66,7 +66,7 @@
         @foreach($tasks_lists as $tasks_list)
             <tr>
                 <td>
-                    <form action="/star/{{ $tasks_list->id }}" method="POST">
+                    <form action="/star-list/{{ $tasks_list->id }}" method="POST">
                         {{ csrf_field() }}
                         <button type="submit" class="ml-3">
                             {!! $tasks_list->starred ? '<i class="bi bi-star-fill"></i> ' : '<i class="bi bi-star"></i>' !!}
@@ -79,8 +79,8 @@
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <form action="/edit-list/{{ $tasks_list->id }}" method="POST" class="form-inline">
                         {{ csrf_field() }}
-                        <input type="text" name="new_title" id="new-tasks-list-title" class="form-control mr-2">
-                        <button type="submit" class="btn btn-primary">
+                        <input type="text" name="new_title" id="new-tasks-list-title" class="form-control mr-2 mt-2">
+                        <button type="submit" class="btn btn-primary mt-2">
                             <i class="bi bi-pen-fill mr-1"></i>
                             Edit Title
                         </button>

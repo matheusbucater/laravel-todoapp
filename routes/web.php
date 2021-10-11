@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,58 +38,23 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     /**
      * Add A New Tasks List
      */
-    Route::post('/tasks-list', function (Request $request, Auth $auth) {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $tasks_list = new TaskList;
-        $tasks_list->user_id = $auth::id();
-        $tasks_list->title = $request->title;
-        $tasks_list->save();
-        return redirect()->back();
-    });
+    Route::post('/tasks-list', [TaskListController::class, 'addList']);
 
     /**
      * Edit Tasks List Title
      */
-    Route::post('/edit-list/{id}', function (Request $request, $id) {
-        $validator = Validator::make($request->all(), [
-            'new_title' => 'required|max:50'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator);
-        }
-        $tasks_list = TaskList::findOrFail($id);
-        $tasks_list->title = $request->new_title;
-        $tasks_list->save();
-        return redirect()->back();
-    });
+    Route::post('/edit-list/{id}', [TaskListController::class, 'renameList']);
 
     /**
      * Delete Tasks List
      */
-    Route::delete('/tasks-list/{id}', function ($id) {
-        TaskList::findOrFail($id)->delete();
-        return redirect('/tasks-lists');
-    });
+    Route::delete('/tasks-list/{id}', [TaskListController::class, 'deleteList']);
 
     /**
      * Un/Star Tasks List
      */
-    Route::post('/star/{id}', function ($id) {
-        $tasks_list = TaskList::findOrFail($id);
-        $tasks_list->starred = !$tasks_list->starred;
-        $tasks_list->save();
-        return redirect()->back();
-    });
+    Route::post('/star-list/{id}', [TaskListController::class, 'starOrUnstarList']);
+
 
     // - - - - - - TASKS - - - - - - //
 
@@ -107,79 +71,32 @@ Route::group(['middleware' => ['auth', 'web']], function () {
     /**
      * Add A New Task
      */
-    Route::post('/add-task/{list_id}', function (Request $request, Auth $auth, $list_id) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $task = new Task;
-        $task->task_list_id = $list_id;
-        $task->name = $request->name;
-        $task->save();
-        return redirect()->back();
-    });
+    Route::post('/add-task/{list_id}', [TaskController::class, 'addTask']);
 
     /**
      * Add A New Task with List
      */
-    Route::post('/add-task', function (Request $request, Auth $auth) {
-       $validator = Validator::make($request->all(),[
-           'name' => 'required|max:255',
-           'select' => 'required'
-       ]);
-       if ($validator->fails()) {
-           return redirect()->back()
-               ->withInput()
-               ->withErrors($validator);
-       }
-
-       $task = new Task;
-        $task->task_list_id = $request->post('select');
-        $task->name = $request->name;
-        $task->save();
-        return redirect()->back();
-    });
+    Route::post('/add-task', [TaskController::class, 'addTaskGivenAList']);
 
     /**
      * Edit Task Name
      */
-    Route::post('/edit/{id}', function (Request $request, $id) {
-        $validator = Validator::make($request->all(), [
-            'new_name' => 'required|max:50'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors($validator);
-        }
-        $task = Task::findOrFail($id);
-        $task->name = $request->new_name;
-        $task->save();
-        return redirect()->back();
-    });
+    Route::post('/edit/{id}', [TaskController::class, 'renameTask']);
 
     /**
      * Un/Finish Task
      */
-    Route::post('/task/{id}', function ($id) {
-        $task = Task::findOrFail($id);
-        $task->completed = !$task->completed;
-        $task->save();
-        return redirect()->back();
-    });
+    Route::post('/task/{id}', [TaskController::class, 'FinishOrUnfinishTask']);
 
     /**
      * Delete Task
      */
-    Route::delete('/task/{id}', function ($id) {
-        Task::findOrFail($id)->delete();
-        return redirect()->back();
-    });
+    Route::delete('/task/{id}', [TaskController::class, 'deleteTask']);
+
+    /**
+     * Un/Star Task
+     */
+    Route::post('/star-task/{id}', [TaskController::class, 'starOrUnstarTask']);
 });
 
 require __DIR__.'/auth.php';

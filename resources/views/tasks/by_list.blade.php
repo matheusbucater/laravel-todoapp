@@ -2,6 +2,14 @@
 @section('title')
     <table>
         <td>
+            <form action="/star-list/{{ $list_id }}" method="POST">
+                {{ csrf_field() }}
+                <button type="submit" class="ml-3">
+                    {!! \App\Models\TaskList::find($list_id)->starred ? '<i class="bi bi-star-fill mr-1"></i> ' : '<i class="bi bi-star mr-1"></i>' !!}
+                </button>
+            </form>
+        </td>
+        <td>
 
             {{ __('Tasks List') . ' - ' . \App\Models\TaskList::findOrFail($list_id)->title}}
         </td>
@@ -93,9 +101,14 @@
     @section('content')
         @foreach($tasks as $task)
             <tr>
-                <th>
-                    &nbsp;
-                </th>
+                <td>
+                    <form action="/star-task/{{ $task->id }}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="ml-3">
+                            {!! $task->starred ? '<i class="bi bi-star-fill"></i> ' : '<i class="bi bi-star"></i>' !!}
+                        </button>
+                    </form>
+                </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     @if($task->completed)
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Finished</span>
@@ -109,8 +122,8 @@
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <form action="/edit/{{ $task->id }}" method="POST" class="form-inline">
                         {{ csrf_field() }}
-                        <input type="text" name="new_name" id="new-task-name" class="form-control mr-2">
-                        <button type="submit" class="btn btn-primary">
+                        <input type="text" name="new_name" id="new-task-name" class="form-control mr-2 mt-2">
+                        <button type="submit" class="btn btn-primary mt-2">
                             <i class="bi bi-pen-fill mr-1"></i>
                             Edit Name
                         </button>

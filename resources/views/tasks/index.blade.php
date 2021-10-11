@@ -112,8 +112,8 @@
                 <td class=" py-4 whitespace-nowrap text-right text-sm font-medium">
                     <form action="/edit/{{ $task->id }}" method="POST" class="form-inline">
                         {{ csrf_field() }}
-                        <input type="text" name="new_name" id="new-task-name" class="form-control mr-2">
-                        <button type="submit" class="btn btn-primary">
+                        <input type="text" name="new_name" id="new-task-name" class="form-control mr-2 mt-2">
+                        <button type="submit" class="btn btn-primary mt-2">
                             <i class="bi bi-pen-fill mr-1"></i>
                             Edit Name
                         </button>

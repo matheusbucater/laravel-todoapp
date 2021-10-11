@@ -47,10 +47,14 @@ class User extends Authenticatable
     }
 
     public function tasks_lists() {
-        return $this->hasMany(TaskList::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(TaskList::class)
+            ->orderBy('starred', 'desc')
+            ->orderBy('created_at', 'desc');
     }
 
     public function tasks() {
-        return $this->hasManyThrough(Task::class, TaskList::class,)->orderBy('created_at', 'desc');
+        return $this->hasManyThrough(Task::class, TaskList::class)
+            ->orderBy('starred', 'desc')
+            ->orderBy('created_at', 'desc');
     }
 }

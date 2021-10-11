@@ -21,7 +21,9 @@ class TaskList extends Model
 
 
     public function tasks() {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)
+            ->orderBy('starred', 'desc')
+            ->orderBy('created_at', 'desc');
     }
 
     public function task() {
