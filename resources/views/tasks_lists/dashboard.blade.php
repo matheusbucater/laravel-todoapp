@@ -27,9 +27,11 @@
                                         <ul>
                                             @foreach($tasks_list->tasks->where('starred', true)->take(3) as $task)
                                                 <li class="mb-2">
-                                                    <span class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full {!! $task->completed ? 'bg-green-100' : 'bg-red-100' !!}">
-                                                        {{ $task->completed ? 'Finished' : 'Unfinished' }}
-                                                    </span>
+                                                    @if($task->completed)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Finished</span>
+                                                    @else
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">Unfinished</span>
+                                                    @endif
                                                     {{$task->name}}
                                                 </li>
                                             @endforeach
@@ -40,9 +42,11 @@
                                         <ul>
                                             @foreach($tasks_list->tasks->take(3) as $task)
                                                 <li class="mb-2">
-                                                    <span class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full {!! $task->completed ? 'bg-green-100' : 'bg-red-100' !!}">
-                                                        {{ $task->compled ? 'Finished' : 'Unfinished' }}
-                                                    </span>
+                                                    @if($task->completed)
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Finished</span>
+                                                    @else
+                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-800">Unfinished</span>
+                                                    @endif
                                                     {{$task->name}}
                                                 </li>
                                             @endforeach
