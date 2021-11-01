@@ -28,7 +28,7 @@
                                             @foreach($tasks_list->tasks->where('starred', true)->take(3) as $task)
                                                 <li class="mb-2">
                                                     <span class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full {!! $task->completed ? 'bg-green-100' : 'bg-red-100' !!}">
-                                                        {!! $task->completed ? 'Finished' : 'Unfinished' !!}
+                                                        {{ $task->completed ? 'Finished' : 'Unfinished' }}
                                                     </span>
                                                     {{$task->name}}
                                                 </li>
@@ -41,7 +41,7 @@
                                             @foreach($tasks_list->tasks->take(3) as $task)
                                                 <li class="mb-2">
                                                     <span class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full {!! $task->completed ? 'bg-green-100' : 'bg-red-100' !!}">
-                                                        {!! $task->compled ? 'Finished' : 'Unfinished' !!}
+                                                        {{ $task->compled ? 'Finished' : 'Unfinished' }}
                                                     </span>
                                                     {{$task->name}}
                                                 </li>
