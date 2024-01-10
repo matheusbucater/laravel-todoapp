@@ -1,5 +1,4 @@
-Projeto de um site de lista de tarefas com Laravel e MySQL. O meu HTML e CSS não é dos melhores, mas o backend está funcionado corretamente.  
-O [site](https://laravel-todolists-app.herokuapp.com) foi publicado através do Heroku usando JawsDB MySQL.
+Projeto de um site de lista de tarefas com Laravel e MySQL.
   
 ![login](https://github.com/matheusbucater/laravel-todoapp/blob/main/resources/images/Screenshot%202021-10-12%20at%2021-43-34%20Todo%20App%20-%20Laravel.png)
 ![dashboard](https://github.com/matheusbucater/laravel-todoapp/blob/main/resources/images/Screenshot%202021-10-12%20at%2021-44-55%20Todo%20App%20-%20Dashboard.png)
